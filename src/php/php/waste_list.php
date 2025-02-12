@@ -3,10 +3,11 @@ require 'config.php';
 
 try {
     $stmt = $pdo->query("
-        SELECT c.id, c.date_collecte, c.lieu, b.nom
+       SELECT d.type_dechet, d.quantite_kg, d.id_collecte, c.lieu, c.date_collecte, c.id, b.id,  b.nom
         FROM collectes c
-        LEFT JOIN benevoles b ON c.id_benevole = b.id
-        ORDER BY c.date_collecte DESC
+        INNER JOIN dechets_collectes d ON c.id = d.id_collecte
+        INNER JOIN benevoles b ON c.id_benevole = b.id
+        ORDER BY c.date_collecte DESC;
     ");
 
     $query = $pdo->prepare("SELECT nom FROM benevoles WHERE role = 'admin' LIMIT 1");

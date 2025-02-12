@@ -14,6 +14,11 @@ $stmt = $pdo->prepare("SELECT * FROM collectes WHERE id = ?");
 $stmt->execute([$id]);
 $collecte = $stmt->fetch();
 
+// Récupérer les types de déchets 
+$stmt_dechets_collectes = $pdo->prepare("SELECT type_dechet FROM dechets_collectes ORDER BY type_dechet");
+$stmt_dechets_collectes->execute();
+$dechets_collectes = $stmt_dechets_collectes->fetchAll();
+
 if (!$collecte) {
     header("Location: collection_list.php");
     exit;
@@ -29,13 +34,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $date = $_POST["date"];
     $lieu = $_POST["lieu"];
     $benevole_id = $_POST["benevole"]; // Récupérer l'ID du bénévole sélectionné
-
+    $type_dechet=$_POST['type_dechet'];
+    $id_collecte=$id;
+    $quantite_kg =$_POST['quantite_kg'];
+   
+    
     $stmt = $pdo->prepare("UPDATE collectes SET date_collecte = ?, lieu = ?, id_benevole = ? WHERE id = ?");
     $stmt->execute([$date, $lieu, $benevole_id, $id]);
 
+   
+    
+    $stmt_dechets_collectes = $pdo->prepare("INSERT INTO dechets_collectes (type_dechet,id_collecte,quantite_kg) VALUES (?,?,?)");
+    $stmt_dechets_collectes->execute([$type_dechet, $id_collecte, $quantite_kg]);
     header("Location: collection_list.php");
+    
     exit;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -85,11 +101,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <label class="block text-sm font-medium text-gray-700">Lieu :</label>
                     <input type="text" name="lieu" value="<?= htmlspecialchars($collecte['lieu']) ?>" required
                            class="w-full p-2 border border-gray-300 rounded-lg">
+                </div> 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Type de déchet :</label>
+                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg">>
+                        <option value="">
+                        Sélectionnez un type de déchet :
+                        </option>
+                        <option value="organique">organique</option>
+                        <option value="plastique">plastique</option>
+                        <option value="métal">métal</option>
+                        <option value="verre">verre</option>
+                        <option value="papier">papier</option>
+                        <option value="carton">carton</option>
+                        <option value="électronique">électronique</option>
+
+                    </select>    
                 </div>
                 <div>
+                   <label class="block text-sm font-medium text-gray-700">Quantité(en kg) :</label>
+                     <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001">
+               </div>
+                <div>
                     <label class="block text-sm font-medium text-gray-700">Bénévole :</label>
-                    <select name="benevole" required
-                            class="w-full p-2 border border-gray-300 rounded-lg">
+                    <select name="benevole" required class="w-full p-2 border border-gray-600 rounded-lg">
                         <option value="" disabled selected>Sélectionnez un·e bénévole</option>
                         <?php foreach ($benevoles as $benevole): ?>
                             <option value="<?= $benevole['id'] ?>" <?= $benevole['id'] == $collecte['id_benevole'] ? 'selected' : '' ?>>
