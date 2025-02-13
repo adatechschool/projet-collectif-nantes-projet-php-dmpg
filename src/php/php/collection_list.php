@@ -115,10 +115,12 @@ error_reporting(E_ALL);
                                 🗑️ Supprimer
                             </a>
                         </td>
-                        <td class="py-3 px-4 flex space-x-2">
-                            
+                        <td class="py-3 px-4"> 
+                            <a href="waste_list.php?id=<?= $collecte['id'] ?>" class="bg-cyan-200 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"> 
+                                &#43 Détails
+                        </a>
                         </td>
-                    </tr>
+                    </tr> 
                 <?php endforeach; ?>
                 </tbody>
             </table>

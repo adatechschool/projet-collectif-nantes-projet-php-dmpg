@@ -1,21 +1,40 @@
 <?php
 require 'config.php';
 
+// revoir boucle forEach html
+// rajouter condition au dessus des lignes table benevoles et dechets_collectes
+// rajouter condition WHERE  dans le join
+
+$id = $_GET['id'];
+
 try {
     $stmt = $pdo->query("
-       SELECT d.type_dechet, d.quantite_kg, d.id_collecte, c.lieu, c.date_collecte, c.id, b.id,  b.nom
+       SELECT d.type_dechet, d.quantite_kg, c.lieu, c.date_collecte, b.nom
         FROM collectes c
         INNER JOIN dechets_collectes d ON c.id = d.id_collecte
         INNER JOIN benevoles b ON c.id_benevole = b.id
+        WHERE c.id = $id
         ORDER BY c.date_collecte DESC;
     ");
+
+
+    $query = $pdo->prepare("SELECT id FROM collectes WHERE id = ?");
+    $query->execute([$id]);
 
     $query = $pdo->prepare("SELECT nom FROM benevoles WHERE role = 'admin' LIMIT 1");
     $query->execute();
 
-    $collectes = $stmt->fetchAll();
     $admin = $query->fetch(PDO::FETCH_ASSOC);
     $adminNom = $admin ? htmlspecialchars($admin['nom']) : 'Aucun administrateur trouvé';
+
+    $stmt_total = $pdo->query("SELECT SUM(quantite_kg) AS somme FROM dechets_collectes WHERE id_collecte = $id");
+    $quantite_max = $stmt_total->fetch(PDO::FETCH_ASSOC);
+    $result = $quantite_max['somme'];
+    
+
+    $collectes = $stmt->fetchAll();
+    $dechets_collectes = $stmt->fetchAll();
+
 
 } catch (PDOException $e) {
     echo "Erreur de base de données : " . $e->getMessage();
@@ -32,7 +51,7 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Collectes</title>
+    <title>Liste des déchets de la collecte</title>
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&family=Poppins:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;700&family=Nunito:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
@@ -73,13 +92,12 @@ error_reporting(E_ALL);
             <!-- Nombre total de collectes -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des Collectes</h3>
-                <p class="text-3xl font-bold text-blue-600"><?= count($collectes) ?></p>
+                <p class="text-3xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
             <!-- Dernière collecte -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Dernière Collecte</h3>
-                <p class="text-lg text-gray-600"><?= htmlspecialchars($collectes[0]['lieu']) ?></p>
-                <p class="text-lg text-gray-600"><?= date('d/m/Y', strtotime($collectes[0]['date_collecte'])) ?></p>
+
             </div>
             <!-- Bénévole Responsable -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
@@ -96,31 +114,28 @@ error_reporting(E_ALL);
                     <th class="py-3 px-4 text-left">Date</th>
                     <th class="py-3 px-4 text-left">Lieu</th>
                     <th class="py-3 px-4 text-left">Bénévole Responsable</th>
-                    <th class="py-3 px-4 text-left">Actions</th>
-                    <th class="py-3 px-4 text-left">Déchets</th>
+                    <th class="py-3 px-4 text-left">Quantité en kg</th>
+                    <th class="py-3 px-4 text-left">Type de déchets</th>
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-300">
-                <?php foreach ($collectes as $collecte) : ?>
+                  <?php foreach ($collectes as $collecte) : ?>
                     <tr class="hover:bg-gray-100 transition duration-200">
                         <td class="py-3 px-4"><?= date('d/m/Y', strtotime($collecte['date_collecte'])) ?></td>
                         <td class="py-3 px-4"><?= htmlspecialchars($collecte['lieu']) ?></td>
                         <td class="py-3 px-4">
                             <?= $collecte['nom'] ? htmlspecialchars($collecte['nom']) : 'Aucun bénévole' ?>
                         </td>
-                        <td class="py-3 px-4 flex space-x-2">
-                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="bg-cyan-200 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
-                                ✏️ Modifier
-                            </a>
-                            <a href="collection_delete.php?id=<?= $collecte['id'] ?>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette collecte ?');">
-                                🗑️ Supprimer
-                            </a>
+                        <td class="py-3 px-4">
+                            <?=$collecte['quantite_kg'] ? htmlspecialchars($collecte['quantite_kg']) : 'Aucune quantité' ?>
+                        </td>
+                        <td class="py-3 px-4">
+                            <?= $collecte['type_dechet'] ? htmlspecialchars($collecte['type_dechet']) : 'Aucun type de déchet' ?>
                         </td>
                         <td class="py-3 px-4 flex space-x-2">
-                            
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                  <?php endforeach?>
                 </tbody>
             </table>
         </div>
