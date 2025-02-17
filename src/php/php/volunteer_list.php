@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-// Création de la table de jointure
+// Création de la table de jointure pour faire le lien entre bénévoles et déchets collectés
 try {
     $stmt = $pdo->query("
     SELECT b.nom, b.email, b.role, b.id,
@@ -15,14 +15,10 @@ try {
 
   $benevoles = $stmt->fetchAll();
 
-
-
 } catch (PDOException $e) {
     echo "Erreur de base de données : " . $e->getMessage();
     exit;
 }
-
-
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -42,12 +38,10 @@ error_reporting(E_ALL);
 <div class="flex h-screen">
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
-
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <!-- Titre -->
         <h1 class="text-4xl font-bold text-blue-800 mb-6">Liste des Bénévoles</h1>
-
         <!-- Tableau des bénévoles -->
         <div class="overflow-hidden rounded-lg shadow-lg bg-white">
             <table class="w-full table-auto border-collapse">
@@ -65,13 +59,12 @@ error_reporting(E_ALL);
                         <td class="py-3 px-4"><?= htmlspecialchars($benevole['nom']) ?></td>
                         <td class="py-3 px-4"><?= htmlspecialchars($benevole['email']) ?></td> 
                         <td class="py-3 px-4"><?= htmlspecialchars($benevole['role'])  ?></td> 
-                     
                         <td class="py-3 px-4"><?= round($benevole["total_dechets"],2) ?></td>
                         <td class="py-3 px-4 flex space-x-2">
-                            <a href="volunteer_edit.php?id=<?= $benevole['id'] ?>" class="bg-cyan-200 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                            <a href="volunteer_edit.php?id=<?= $benevole['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                                 ✏️ Modifier
                             </a>
-                            <a href="volunteer_delete.php?id=<?= $benevole['id'] ?>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce benevole ?');">
+                            <a href="volunteer_delete.php?id=<?= $benevole['id'] ?>" class="border border-solid border-purple-600 text-black px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce benevole ?');">
                                 🗑️ Supprimer
                             </a>
                         </td>
@@ -84,4 +77,3 @@ error_reporting(E_ALL);
 </div>
 </body>
 </html>
-

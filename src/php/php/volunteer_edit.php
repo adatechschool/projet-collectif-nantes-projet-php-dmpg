@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-// Vérifier si un ID de bénévole est fourni
+// Vérifier si un ID de bénévole est fourni, si non, on retroune à la liste des bénévoles
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: volunteer_list.php");
     exit;
@@ -14,6 +14,7 @@ $stmt = $pdo->prepare("SELECT * FROM benevoles WHERE id = ?");
 $stmt->execute([$id]);
 $benevole = $stmt->fetch();
 
+// Si aucune donnée n'a été récupérée, on retourne à la liste des bénévoles
 if (!$benevole) {
     header("Location: volunteer_list.php");
     exit;
@@ -45,11 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="flex h-screen">
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
-
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <h1 class="text-4xl font-bold text-blue-900 mb-6">Modifier les informations</h1>
-
         <!-- Formulaire -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <form method="POST" class="space-y-4">
@@ -67,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <label class="block text-sm font-medium text-gray-700">Mot de passe :</label>
                     <input type="text" name="mot_de_passe" value="<?= htmlspecialchars($benevole['mot_de_passe']) ?>" required
                     class="w-full p-2 border border-gray-300 rounded-lg">
-                   
                 </div>
                 <div class="flex justify-end space-x-4">
                     <a href="volunteer_list.php" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Annuler</a>
@@ -77,6 +75,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 require 'config.php';
 
+// Récupération des informations en créant une table de jointure
 try {
     $stmt = $pdo->query("
         SELECT c.id, c.date_collecte, c.lieu, b.nom, d.quantite_kg
@@ -10,13 +11,15 @@ try {
         ORDER BY c.date_collecte DESC
     ");
 
+    $collectes = $stmt->fetchAll();
+
+    // Récupération des bénévoles admin pour l'afficher dans les cartes
     $query = $pdo->prepare("SELECT nom FROM benevoles WHERE role = 'admin' LIMIT 1");
     $query->execute();
-
-    $collectes = $stmt->fetchAll();
     $admin = $query->fetch(PDO::FETCH_ASSOC);
     $adminNom = $admin ? htmlspecialchars($admin['nom']) : 'Aucun administrateur trouvé';
 
+    // Requête sql qui récupère la totalité des déchets collectés
     $stmt_total = $pdo->query("SELECT SUM(quantite_kg) AS somme FROM dechets_collectes");
     $quantite_max = $stmt_total->fetch(PDO::FETCH_ASSOC);
     $result = $quantite_max['somme'];
@@ -38,7 +41,7 @@ error_reporting(E_ALL);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Collectes</title>
     <head>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&family=Poppins:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;700&family=Nunito:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&family=Poppins:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;700&family=Nunito:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -47,19 +50,16 @@ error_reporting(E_ALL);
 <div class="flex h-screen">
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
-
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <!-- Titre -->
         <h1 class="text-4xl font-bold text-blue-800 mb-6">Liste des Collectes de Déchets</h1>
-
         <!-- Message de notification (ex: succès de suppression ou ajout) -->
         <?php if (isset($_GET['message'])): ?>
             <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
                 <?= htmlspecialchars($_GET['message']) ?>
             </div>
         <?php endif; ?>
-
         <!-- Cartes d'informations -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Nombre total de collectes -->
@@ -84,7 +84,6 @@ error_reporting(E_ALL);
                 <p class="text-lg text-gray-600"><?= $adminNom ?></p>
             </div>
         </div>
-
         <!-- Tableau des collectes -->
         <div class="overflow-hidden rounded-lg shadow-lg bg-white">
             <table class="w-full table-auto border-collapse">
@@ -106,15 +105,15 @@ error_reporting(E_ALL);
                             <?= $collecte['nom'] ? htmlspecialchars($collecte['nom']) : 'Aucun bénévole' ?>
                         </td>
                         <td class="py-3 px-4 flex space-x-2">
-                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="bg-cyan-200 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                                 ✏️ Modifier
                             </a>
-                            <a href="collection_delete.php?id=<?= $collecte['id'] ?>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette collecte ?');">
+                            <a href="collection_delete.php?id=<?= $collecte['id'] ?>" class="border border-solid border-purple-600 text-black px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette collecte ?');">
                                 🗑️ Supprimer
                             </a>
                         </td>
                         <td class="py-3 px-4"> 
-                            <a href="waste_list.php?id=<?= $collecte['id'] ?>" class="bg-cyan-200 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"> 
+                            <a href="waste_list.php?id=<?= $collecte['id'] ?>" class="bg-[#000000] hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"> 
                                 &#43 Détails
                         </a>
                         </td>

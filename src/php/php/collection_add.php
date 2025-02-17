@@ -36,13 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="bg-gray-100 text-gray-900">
 <div class="flex h-screen">
-<?php include 'header.php'; ?>
-
+    <!-- Barre de navigation --> 
+    <?php include 'header.php'; ?>
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <!-- Titre -->
         <h1 class="text-4xl font-bold text-blue-900 mb-6">Ajouter une collecte</h1>
-
         <!-- Formulaire -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <form method="POST" class="space-y-4">
@@ -52,14 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input type="date" name="date" required
                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                 </div>
-
                 <!-- Lieu -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Lieu :</label>
                     <input type="text" name="lieu" required
                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                 </div>
-
                 <!-- Bénévole responsable -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Bénévole Responsable :</label>
@@ -73,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <?php endforeach; ?>
                     </select>
                 </div>
-
                 <!-- Boutons -->
                 <div class="flex justify-end space-x-4">
                     <a href="collection_list.php" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg shadow">Annuler</a>
@@ -83,9 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
             </form>
         </div>
-
     </div>
 </div>
-
 </body>
 </html>

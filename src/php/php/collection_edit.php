@@ -41,8 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     $stmt = $pdo->prepare("UPDATE collectes SET date_collecte = ?, lieu = ?, id_benevole = ? WHERE id = ?");
     $stmt->execute([$date, $lieu, $benevole_id, $id]);
-
-   
     
     $stmt_dechets_collectes = $pdo->prepare("INSERT INTO dechets_collectes (type_dechet,id_collecte,quantite_kg) VALUES (?,?,?)");
     $stmt_dechets_collectes->execute([$type_dechet, $id_collecte, $quantite_kg]);
@@ -50,8 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     exit;
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -66,11 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="flex h-screen">
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
-
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <h1 class="text-4xl font-bold text-blue-900 mb-6">Modifier une collecte</h1>
-
         <!-- Formulaire -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <form method="POST" class="space-y-4">
@@ -97,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <option value="papier">papier</option>
                         <option value="carton">carton</option>
                         <option value="électronique">électronique</option>
-
                     </select>    
                 </div>
                 <div>
@@ -123,6 +116,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 </div>
-
 </body>
 </html>

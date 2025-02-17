@@ -1,22 +1,18 @@
 <?php
 require 'config.php';
 
-// revoir boucle forEach html
-// rajouter condition au dessus des lignes table benevoles et dechets_collectes
-// rajouter condition WHERE  dans le join
-
 $id = $_GET['id'];
 
+// Création d'une table de jointure pour faire le lien entre les déchets collectés et les collectes
 try {
     $stmt = $pdo->query("
-       SELECT d.type_dechet, d.quantite_kg, c.lieu, c.date_collecte, b.nom
+        SELECT d.type_dechet, d.quantite_kg, c.lieu, c.date_collecte, b.nom
         FROM collectes c
         INNER JOIN dechets_collectes d ON c.id = d.id_collecte
         INNER JOIN benevoles b ON c.id_benevole = b.id
         WHERE c.id = $id
         ORDER BY c.date_collecte DESC;
     ");
-
 
     $query = $pdo->prepare("SELECT id FROM collectes WHERE id = ?");
     $query->execute([$id]);
@@ -30,7 +26,6 @@ try {
     $stmt_total = $pdo->query("SELECT SUM(quantite_kg) AS somme FROM dechets_collectes WHERE id_collecte = $id");
     $quantite_max = $stmt_total->fetch(PDO::FETCH_ASSOC);
     $result = $quantite_max['somme'];
-    
 
     $collectes = $stmt->fetchAll();
     $dechets_collectes = $stmt->fetchAll();
@@ -62,19 +57,16 @@ error_reporting(E_ALL);
 <div class="flex h-screen">
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
-
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <!-- Titre -->
         <h1 class="text-4xl font-bold text-blue-800 mb-6">Détail de la collecte</h1>
-
         <!-- Message de notification (ex: succès de suppression ou ajout) -->
         <?php if (isset($_GET['message'])): ?>
             <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
                 <?= htmlspecialchars($_GET['message']) ?>
             </div>
         <?php endif; ?>
-
         <!-- Cartes d'informations -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <!-- Nombre total de collectes -->
@@ -82,14 +74,12 @@ error_reporting(E_ALL);
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des déchets en KG</h3>
                 <p class="text-3xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
-        
             <!-- Bénévole Responsable -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Bénévole Responsable</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Bénévole Admin</h3>
                 <p class="text-lg text-gray-600"><?= $adminNom ?></p>
             </div>
         </div>
-
         <!-- Tableau des collectes -->
         <div class="overflow-hidden rounded-lg shadow-lg bg-white">
             <table class="w-full table-auto border-collapse">
