@@ -3,9 +3,10 @@ require 'config.php';
 
 try {
     $stmt = $pdo->query("
-        SELECT c.id, c.date_collecte, c.lieu, b.nom
+        SELECT c.id, c.date_collecte, c.lieu, b.nom, d.quantite_kg
         FROM collectes c
         LEFT JOIN benevoles b ON c.id_benevole = b.id
+        INNER JOIN dechets_collectes d ON c.id = d.id_collecte
         ORDER BY c.date_collecte DESC
     ");
 
@@ -15,6 +16,10 @@ try {
     $collectes = $stmt->fetchAll();
     $admin = $query->fetch(PDO::FETCH_ASSOC);
     $adminNom = $admin ? htmlspecialchars($admin['nom']) : 'Aucun administrateur trouvé';
+
+    $stmt_total = $pdo->query("SELECT SUM(quantite_kg) AS somme FROM dechets_collectes");
+    $quantite_max = $stmt_total->fetch(PDO::FETCH_ASSOC);
+    $result = $quantite_max['somme'];
 
 } catch (PDOException $e) {
     echo "Erreur de base de données : " . $e->getMessage();
@@ -40,20 +45,8 @@ error_reporting(E_ALL);
 </head>
 <body class="bg-gray-100 text-gray-900">
 <div class="flex h-screen">
-    <!-- Barre de navigation -->
-    <div class="bg-cyan-200 text-white w-64 p-6">
-        <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
-            <li><a href="collection_list.php" class="flex items-center py-2 px-3 hover:bg-blue-800 rounded-lg"><i class="fas fa-tachometer-alt mr-3"></i> Tableau de bord</a></li>
-            <li><a href="collection_add.php" class="flex items-center py-2 px-3 hover:bg-blue-800 rounded-lg"><i class="fas fa-plus-circle mr-3"></i> Ajouter une collecte</a></li>
-            <li><a href="volunteer_list.php" class="flex items-center py-2 px-3 hover:bg-blue-800 rounded-lg"><i class="fa-solid fa-list mr-3"></i> Liste des bénévoles</a></li>
-            <li><a href="user_add.php" class="flex items-center py-2 px-3 hover:bg-blue-800 rounded-lg"><i class="fas fa-user-plus mr-3"></i> Ajouter un bénévole</a></li>
-            <li><a href="my_account.php" class="flex items-center py-2 px-3 hover:bg-blue-800 rounded-lg"><i class="fas fa-cogs mr-3"></i> Mon compte</a></li>
-        <div class="mt-6">
-            <button onclick="logout()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg shadow-md">
-                Déconnexion
-            </button>
-        </div>
-    </div>
+    <!-- Barre de navigation --> 
+    <?php include 'header.php'; ?>
 
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
@@ -68,11 +61,16 @@ error_reporting(E_ALL);
         <?php endif; ?>
 
         <!-- Cartes d'informations -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Nombre total de collectes -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des Collectes</h3>
                 <p class="text-3xl font-bold text-blue-600"><?= count($collectes) ?></p>
+            </div>
+              <!-- Total des déchets collectés en kg -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des déchets collectés en kg</h3>
+                <p class="text-3xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
             <!-- Dernière collecte -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
