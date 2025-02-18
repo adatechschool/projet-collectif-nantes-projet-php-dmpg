@@ -13,10 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $date = $_POST["date"];
     $lieu = $_POST["lieu"];
     $benevole_id = $_POST["benevole"];  // ID du bénévole choisi, modifié ici pour correspondre au formulaire
+    $type_dechet = $_POST['type_dechet'];
+    $quantite_kg = $_POST['quantite_kg'];
 
     // Insérer la collecte avec le bénévole sélectionné
     $stmt = $pdo->prepare("INSERT INTO collectes (date_collecte, lieu, id_benevole) VALUES (?, ?, ?)");
+   
     if (!$stmt->execute([$date, $lieu, $benevole_id])) {
+        die('Erreur lors de l\'insertion dans la base de données.');
+    }
+
+    // Récupérer le dernier id entré dans la table collectes
+    $stmt_collectes = $pdo->query("SELECT id FROM collectes WHERE id = LAST_INSERT_ID()");
+    $result = $stmt_collectes->fetch(PDO::FETCH_ASSOC);
+    $id_collecte = $result['id'];
+    
+
+    // Ajout des infos dans la table dechets_collectes + l'id de la dernière collecte pour les faire correspondre
+    $stmt_dechets_collectes = $pdo->prepare("INSERT INTO dechets_collectes (id_collecte, type_dechet, quantite_kg) VALUES ($id_collecte, ?, ?)");
+    $stmt_dechets_collectes->execute([$type_dechet, $quantite_kg]);
+
+    if (!$stmt_dechets_collectes->execute([$type_dechet, $quantite_kg])) {
         die('Erreur lors de l\'insertion dans la base de données.');
     }
 
@@ -57,6 +74,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input type="text" name="lieu" required
                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                 </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Type de déchet :</label>
+                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg">>
+                        <option value="">
+                        Sélectionnez un type de déchet :
+                        </option>
+                        <option value="organique">organique</option>
+                        <option value="plastique">plastique</option>
+                        <option value="métal">métal</option>
+                        <option value="verre">verre</option>
+                        <option value="papier">papier</option>
+                        <option value="carton">carton</option>
+                        <option value="électronique">électronique</option>
+                    </select>    
+                </div>
+                <div>
+                   <label class="block text-sm font-medium text-gray-700">Quantité(en kg) :</label>
+                     <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001">
+               </div>
                 <!-- Bénévole responsable -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Bénévole Responsable :</label>

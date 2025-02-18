@@ -4,10 +4,9 @@ require 'config.php';
 // Récupération des informations en créant une table de jointure
 try {
     $stmt = $pdo->query("
-        SELECT c.id, c.date_collecte, c.lieu, b.nom, d.quantite_kg
+        SELECT c.id, c.date_collecte, c.lieu, b.nom
         FROM collectes c
         LEFT JOIN benevoles b ON c.id_benevole = b.id
-        INNER JOIN dechets_collectes d ON c.id = d.id_collecte
         ORDER BY c.date_collecte DESC
     ");
 

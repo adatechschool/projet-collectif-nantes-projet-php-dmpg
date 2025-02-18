@@ -104,7 +104,7 @@ error_reporting(E_ALL);
                             <?=$collecte['quantite_kg'] ? htmlspecialchars($collecte['quantite_kg']) : 'Aucune quantité' ?>
                         </td>
                         <td class="py-3 px-4">
-                            <?= $collecte['type_dechet'] ? htmlspecialchars($collecte['type_dechet']) : 'Aucun type de déchet' ?>
+                            <?= $collecte['type_dechet'] ? htmlspecialchars($collecte['type_dechet']) : 'Déchet non précisé' ?>
                         </td>
                     </tr>
                   <?php endforeach?>
