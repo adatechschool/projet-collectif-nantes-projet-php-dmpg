@@ -1,7 +1,11 @@
 <?php
+// Inclusion du fichier de configuration contenant les informations
+//  de connexion à la base de données  
 require 'config.php';
 
 try {
+    // Exécution d'une requête SQL pour récupérer les informations
+    //  sur les collectes  
     $stmt = $pdo->query("
        SELECT d.type_dechet, d.quantite_kg, d.id_collecte, c.lieu, c.date_collecte, c.id, b.id,  b.nom
         FROM collectes c
@@ -9,22 +13,28 @@ try {
         INNER JOIN benevoles b ON c.id_benevole = b.id
         ORDER BY c.date_collecte DESC;
     ");
-
+ // Préparation d'une requête pour obtenir le nom d'un administrateur 
     $query = $pdo->prepare("SELECT nom FROM benevoles WHERE role = 'admin' LIMIT 1");
+    // Exécution de la requête préparée   
     $query->execute();
 
+ // Récupération de toutes les collectes sous forme de tableau
     $collectes = $stmt->fetchAll();
+    // Récupération du résultat de la requête d'administrateur 
     $admin = $query->fetch(PDO::FETCH_ASSOC);
+    // Vérification si un administrateur a été trouvé et 
+    // sécurisation du nom   
     $adminNom = $admin ? htmlspecialchars($admin['nom']) : 'Aucun administrateur trouvé';
 
 } catch (PDOException $e) {
+   // Gestion des erreurs de base de données   
     echo "Erreur de base de données : " . $e->getMessage();
-    exit;
+    exit;// Arrêt du script en cas d'erreur
 }
-
+// Activation de l'affichage des erreurs pour le développement 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL);// Active le rapport d'erreurs
 ?>
 
 <!DOCTYPE html>

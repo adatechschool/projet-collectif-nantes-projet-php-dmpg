@@ -1,33 +1,49 @@
 <?php
+// Inclusion du fichier de configuration contenant les 
+// informations de connexion à la base de données  
 require 'config.php';
 
-// Vérifier si un ID de bénévole est fourni
+// Vérifier si un ID de bénévole est fourni dand l'URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
+  // Si l'ID n'est pas présent, rediriger vers la liste 
+  // des bénévoles     
     header("Location: volunteer_list.php");
-    exit;
+    exit; // Arrêter l'exécution du script après la redirection
 }
-
+// Récupération de l'ID du bénévole depuis l'URL 
 $id = $_GET['id'];
 
-// Récupérer les informations du bénévole
+// Préparer une requête pour récupérer les informations du bénévole
+//  correspondant à l'ID  
 $stmt = $pdo->prepare("SELECT * FROM benevoles WHERE id = ?");
 $stmt->execute([$id]);
+// Récupérer les informations du bénévole sous forme de tableau 
+// associatif
 $benevole = $stmt->fetch();
 
+// Vérifier si un bénévole a été trouvé avec cet ID
 if (!$benevole) {
+  // Si aucun bénévole n'est trouvé, rediriger vers la liste
+  //  des bénévoles    
     header("Location: volunteer_list.php");
     exit;
 }
 
 // Mettre à jour les infos du bénévole
+// Vérifier si le formulaire a été soumis via la méthode POST 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nom = $_POST["nom"];
-    $email = $_POST["email"];
+    $nom = $_POST["nom"]; // Récupérer le nom
+    $email = $_POST["email"];// Récupérer l'email 
     $mot_de_passe = $_POST["mot_de_passe"];
 
+ // Préparer une requête pour mettre à jour les informations 
+ // du bénévole
     $stmt = $pdo->prepare("UPDATE benevoles SET nom = ?, email = ?, mot_de_passe = ? WHERE id = ?");
+   // Exécuter la requête de mise à jour avec les nouvelles
+   //  informations    
     $stmt->execute([$nom, $email, $mot_de_passe, $id]);
 
+    // Rediriger vers la liste des bénévoles après la mise à jour    
     header("Location: volunteer_list.php");
     exit;
 }
