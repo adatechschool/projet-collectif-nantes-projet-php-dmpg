@@ -66,13 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                            placeholder="Mot de passe" required>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium">Rôle</label>
-                    <select name="role"
-                            class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="participant">Participant</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
+                    <label class="block text-gray-700 font-medium ai-style-change-2" for="role-select">Rôle</label>
+                    <select name="role" id="role-select" aria-label="Select role" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ai-style-change-1">
+                    <option value="participant">Participant</option>
+                    <option value="admin">Admin</option>
+        </select>
+    </div>
                 <div class="mt-6">
                     <button type="submit"
                             class="border border-solid border-green-600 text-black px-4 py-2 hover:bg-green-400 hover:text-black rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">

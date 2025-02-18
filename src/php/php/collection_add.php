@@ -65,18 +65,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <!-- Date -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Date :</label>
-                    <input type="date" name="date" required
-                           class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    <input type="date" name="date" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="date-input" aria-describedby="date-description" placeholder="Enter the date " title="Date input field" aria-label="Date">
                 </div>
                 <!-- Lieu -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Lieu :</label>
-                    <input type="text" name="lieu" required
-                           class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700" for="lieu-input-uho9kt4">Lieu :</label>
+                    <input type="text" name="lieu" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="lieu-input" aria-describedby="lieu-description" placeholder="Choisir le lieu de la collecte" title="Location input field" aria-label="Location">
+                    <div id="lieu-description" style="" class="ai-style-change-2"></div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Type de déchet :</label>
-                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg">>
+                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg" aria-describedby="type-dechet-description" title="Type of waste select field" aria-label="Type of waste">
                         <option value="">
                         Sélectionnez un type de déchet :
                         </option>
@@ -91,19 +90,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <div>
                    <label class="block text-sm font-medium text-gray-700">Quantité(en kg) :</label>
-                     <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001">
+                   <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001" id="quantite-kg-input-tgf4cg5" aria-describedby="quantite-kg-description" placeholder="Enter quantity in kg" title="Quantity in kilograms input field" aria-label="Quantity in kilograms">
                </div>
                 <!-- Bénévole responsable -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Bénévole Responsable :</label>
-                    <select name="benevole" required
-                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700" for="benevole-select">Bénévole Responsable :</label>
+                    <select name="benevole" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="benevole-select" aria-describedby="benevole-description" title="Responsible volunteer select field" aria-label="Responsible volunteer">
                         <option value="">Sélectionner un bénévole</option>
                         <?php foreach ($benevoles as $benevole): ?>
                             <option value="<?= $benevole['id'] ?>" <?= $benevole['id'] ==  'selected' ?>>
                                 <?= htmlspecialchars($benevole['nom']) ?>
                             </option>
                         <?php endforeach; ?>
+                        <div id="benevole-description" style="" class="ai-style-change-1">Please select the responsible volunteer.</div>
                     </select>
                 </div>
                 <!-- Boutons -->
