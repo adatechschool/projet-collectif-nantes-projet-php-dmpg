@@ -2,7 +2,7 @@
     <div class="bg-blue-800 text-white w-64 p-6">
             <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
             
-            <button> <a href="collection_list.php" class="flex items-center py-2 px-3 hover:border border-solid rounded-lg"><i class="fas fa-tachometer-alt mr-3"></i> Accueil </a> </button>
+            <button> <a href="welcome.php" class="flex items-center py-2 px-3 hover:border border-solid rounded-lg"><i class="fas fa-tachometer-alt mr-3"></i> Accueil </a> </button>
             <button> <a href="collection_list.php" class="flex items-center py-4 px-3 hover:border border-solid rounded-lg"><i class="fa-solid fa-list mr-3"></i> Liste des collectes</a> </button>
             <button> <a href="volunteer_list.php" class="flex items-center py-4 px-3 hover:border border-solid rounded-lg"><i class="fa-solid fa-clipboard-list mr-4"></i> Liste des bénévoles</a> </button>
             <button> <a href="collection_add.php" class="flex items-center py-4 px-3 hover:border border-solid rounded-lg"><i class="fas fa-plus-circle mr-3"></i> Ajouter une collecte</a> </button>
