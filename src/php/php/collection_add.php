@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Ajout des infos dans la table dechets_collectes + l'id de la dernière collecte pour les faire correspondre
     $stmt_dechets_collectes = $pdo->prepare("INSERT INTO dechets_collectes (id_collecte, type_dechet, quantite_kg) VALUES ($id_collecte, ?, ?)");
-    $stmt_dechets_collectes->execute([$type_dechet, $quantite_kg]);
+    // $stmt_dechets_collectes->execute([$type_dechet, $quantite_kg]);
 
     if (!$stmt_dechets_collectes->execute([$type_dechet, $quantite_kg])) {
         die('Erreur lors de l\'insertion dans la base de données.');

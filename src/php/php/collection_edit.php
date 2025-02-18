@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </select>    
                 </div>
                 <div>
-                   <label class="block text-sm font-medium text-gray-700">Quantité(en kg) :</label>
+                   <label class="block text-sm  font-medium px-2 text-gray-700">Quantité(en kg) :</label>
                      <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001">
                </div>
                 <div>
