@@ -104,7 +104,7 @@ error_reporting(E_ALL);
                             <?= $collecte['nom'] ? htmlspecialchars($collecte['nom']) : 'Aucun bénévole' ?>
                         </td>
                         <td class="py-3 px-4 flex space-x-2">
-                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" role="button" aria-label="Edit collection" >
+                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" role="button" aria-label="Modifier la collecte" >
                             ✏️ Modifier
                             </a>
                             <a href="collection_delete.php?id=<?= $collecte['id'] ?>" class="border border-solid border-purple-600 text-black px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette collecte ?');">
