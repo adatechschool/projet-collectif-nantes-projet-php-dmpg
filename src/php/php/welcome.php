@@ -61,7 +61,7 @@ require 'config.php';
     <!-- Barre de navigation --> 
     <?php include 'header.php'; ?>
     <!-- Contenu principal -->
-    <div class="flex-1 p-8 overflow-y-auto">
+    <div class="flex-1 p-8 overflow-y-auto ai-style-change-1" role="main" tabindex="0" aria-label="Page d'accueil de l'association">
         <!-- Titre -->
         <h1 class="text-5xl font-bold text-blue-800 mb-12">Bienvenue ! (nom de l'asso ?)</h1>
         <h2 class="text-4xl font-bold text-blue-800 mb-8">Nos records :</h1>
