@@ -78,20 +78,20 @@ require 'config.php';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <!-- Nombre total de collectes -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Bénévole ayant ramassé le plus de déchets :</h3>
-                    <p class="text-3xl font-bold text-blue-600"><?=$benevole_info_max['nom']?></p>
-                    <p class="text-3xl font-bold text-blue-600 mt-3"><?=$benevole_info_max['total_dechets']?> kg</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Bénévole ayant ramassé le plus de déchets </h3>
+                    <p class="text-2xl font-bold text-blue-600"><?=$benevole_info_max['nom']?></p>
+                    <p class="text-2xl font-bold text-blue-600 mt-3"><?=$benevole_info_max['total_dechets']?> kg</p>
                 </div>
                 <!-- Total des déchets collectés en kg -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Ville que l'on a le plus nettoyée :</h3>
-                    <p class="text-3xl font-bold text-blue-600"><?=$ville_info_max['lieu']?></p>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Ville dans laquelle il y a eu le plus de déchets collectés </h3>
+                    <p class="text-2xl font-bold text-blue-600 mt-5"><?=$ville_info_max['lieu']?></p>
                 </div>
                 <!-- Dernière collecte -->
                 <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Type de déchet le plus ramassé :</h3>
-                    <p class="text-3xl font-bold text-blue-600"><?=$type_info_max['type_dechet']?></p>
-                    <p class="text-3xl font-bold text-blue-600 mt-3"><?=$type_info_max['total_dechets']?> kg</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Type de déchet le plus ramassé </h3>
+                    <p class="text-2xl font-bold text-blue-600"><?=$type_info_max['type_dechet']?></p>
+                    <p class="text-2xl font-bold text-blue-600 mt-3"><?=$type_info_max['total_dechets']?> kg</p>
                 </div>
         </div>
         <!-- Bénévole Responsable -->
