@@ -47,20 +47,20 @@ error_reporting(E_ALL);
             <table class="w-full table-auto border-collapse">
                 <thead class="bg-blue-800 text-white">
                 <tr>
-                    <th class="py-3 px-4 text-left">Nom</th>
-                    <th class="py-3 px-4 text-left">Email</th>
-                    <th class="py-3 px-4 text-left">Rôle</th> 
-                    <th class="py-3 px-4 text-left">Quantité de déchets ramassés en KG</th> 
-                    <th class="py-3 px-4 text-left">Actions</th>
+                    <th class="py-3 px-4 text-center">Nom</th>
+                    <th class="py-3 px-4 text-center">Email</th>
+                    <th class="py-3 px-4 text-center">Rôle</th> 
+                    <th class="py-3 px-4 text-center">Quantité de déchets ramassés en KG</th> 
+                    <th class="py-3 px-4 text-center">Actions</th>
                 </tr>
                 </thead>
                 <?php foreach ($benevoles as $benevole) : ?>
                     <tr class="hover:bg-gray-100 transition duration-200">
-                        <td class="py-3 px-4"><?= htmlspecialchars($benevole['nom']) ?></td>
-                        <td class="py-3 px-4"><?= htmlspecialchars($benevole['email']) ?></td> 
-                        <td class="py-3 px-4"><?= htmlspecialchars($benevole['role'])  ?></td> 
-                        <td class="py-3 px-4"><?= round($benevole["total_dechets"],2) ?></td>
-                        <td class="py-3 px-4 flex space-x-2">
+                        <td class="py-3 px-4 text-center"><?= htmlspecialchars($benevole['nom']) ?></td>
+                        <td class="py-3 px-4 text-center"><?= htmlspecialchars($benevole['email']) ?></td> 
+                        <td class="py-3 px-4 text-center"><?= htmlspecialchars($benevole['role'])  ?></td> 
+                        <td class="py-3 px-4 text-center"><?= round($benevole["total_dechets"],2) ?></td>
+                        <td class="py-3 px-4 flex space-x-2 justify-center">
                             <a href="volunteer_edit.php?id=<?= $benevole['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                                 ✏️ Modifier
                             </a>

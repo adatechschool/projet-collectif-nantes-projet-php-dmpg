@@ -58,9 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- Contenu principal -->
     <div class="flex-1 p-8 overflow-y-auto">
         <!-- Titre -->
-        <h1 class="text-4xl font-bold text-blue-900 mb-6">Ajouter une collecte</h1>
+        <h1 class="text-4xl font-bold text-blue-900 mb-6 text-center">Ajouter une collecte</h1>
         <!-- Formulaire -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
             <form method="POST" class="space-y-4">
                 <!-- Date -->
                 <div>
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div>
                     <label class="block text-sm font-medium text-gray-700" for="lieu-input-uho9kt4">Lieu :</label>
                     <input type="text" name="lieu" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="lieu-input" aria-describedby="lieu-description" placeholder="Choisir le lieu de la collecte" title="Location input field" aria-label="Location">
-                    <div id="lieu-description" style="" class="ai-style-change-2"></div>
+                    <div id="lieu-description" class="ai-style-change-2"></div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Type de déchet :</label>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <?= htmlspecialchars($benevole['nom']) ?>
                             </option>
                         <?php endforeach; ?>
-                        <div id="benevole-description" style="" class="ai-style-change-1">Please select the responsible volunteer.</div>
+                        <div id="benevole-description" class="ai-style-change-1">Please select the responsible volunteer.</div>
                     </select>
                 </div>
                 <!-- Boutons -->

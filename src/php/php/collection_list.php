@@ -68,7 +68,7 @@ error_reporting(E_ALL);
             </div>
               <!-- Total des déchets collectés en kg -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des déchets collectés en kg</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-10">Total des déchets collectés en kg</h3>
                 <p class="text-2xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
             <!-- Dernière collecte -->
@@ -88,22 +88,22 @@ error_reporting(E_ALL);
             <table class="w-full table-auto border-collapse">
                 <thead class="bg-blue-800 text-white">
                 <tr>
-                    <th class="py-3 px-4 text-left">Date</th>
-                    <th class="py-3 px-4 text-left">Lieu</th>
-                    <th class="py-3 px-4 text-left">Bénévole Responsable</th>
-                    <th class="py-3 px-4 text-left">Actions</th>
-                    <th class="py-3 px-4 text-left">Déchets</th>
+                    <th class="py-3 px-4 text-center">Date</th>
+                    <th class="py-3 px-4 text-center">Lieu</th>
+                    <th class="py-3 px-4 text-center">Bénévole Responsable</th>
+                    <th class="py-3 px-4 text-center">Actions</th>
+                    <th class="py-3 px-4 text-center">Déchets</th>
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                 <?php foreach ($collectes as $collecte) : ?>
                     <tr class="hover:bg-gray-100 transition duration-200">
-                        <td class="py-3 px-4"><?= date('d/m/Y', strtotime($collecte['date_collecte'])) ?></td>
-                        <td class="py-3 px-4"><?= htmlspecialchars($collecte['lieu']) ?></td>
-                        <td class="py-3 px-4">
+                        <td class="py-3 px-4 text-center"><?= date('d/m/Y', strtotime($collecte['date_collecte'])) ?></td>
+                        <td class="py-3 px-4 text-center"><?= htmlspecialchars($collecte['lieu']) ?></td>
+                        <td class="py-3 px-4 text-center">
                             <?= $collecte['nom'] ? htmlspecialchars($collecte['nom']) : 'Aucun bénévole' ?>
                         </td>
-                        <td class="py-3 px-4 flex space-x-2">
+                        <td class="py-3 px-4 flex space-x-2 justify-center">
                             <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" role="bouton" aria-label="Modifier la collecte" >
                             ✏️ Modifier
                             </a>
@@ -111,7 +111,7 @@ error_reporting(E_ALL);
                                 🗑️ Supprimer
                             </a>
                         </td>
-                        <td class="py-3 px-4"> 
+                        <td class="py-3 px-4 text-center"> 
                             <a href="waste_list.php?id=<?= $collecte['id'] ?>" class="bg-[#000000] hover:bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"> 
                                 &#43 Détails
                         </a>
