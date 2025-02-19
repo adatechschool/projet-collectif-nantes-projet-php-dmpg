@@ -55,7 +55,7 @@ error_reporting(E_ALL);
         <h1 class="text-4xl font-bold text-blue-800 mb-6">Liste des Collectes de Déchets</h1>
         <!-- Message de notification (ex: succès de suppression ou ajout) -->
         <?php if (isset($_GET['message'])): ?>
-            <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
+            <div class="bg-green-100 text-black-800 p-4 rounded-md mb-6">
                 <?= htmlspecialchars($_GET['message']) ?>
             </div>
         <?php endif; ?>
@@ -63,24 +63,24 @@ error_reporting(E_ALL);
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Nombre total de collectes -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des Collectes</h3>
-                <p class="text-3xl font-bold text-blue-600"><?= count($collectes) ?></p>
+                <h3 class="text-xl font-semibold text-gray-800 mb-10">Total des Collectes</h3>
+                <p class="text-2xl font-bold text-blue-600"><?= count($collectes) ?></p>
             </div>
               <!-- Total des déchets collectés en kg -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des déchets collectés en kg</h3>
-                <p class="text-3xl font-bold text-blue-600"><?= round($result,2) ?></p>
+                <p class="text-2xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
             <!-- Dernière collecte -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Dernière Collecte</h3>
-                <p class="text-lg text-gray-600"><?= htmlspecialchars($collectes[0]['lieu']) ?></p>
-                <p class="text-lg text-gray-600"><?= date('d/m/Y', strtotime($collectes[0]['date_collecte'])) ?></p>
+                <h3 class="text-xl font-semibold text-black-800 mb-5">Dernière Collecte</h3>
+                <p class="text-lg text-black-600"><?= htmlspecialchars($collectes[0]['lieu']) ?></p>
+                <p class="text-lg text-black-600"><?= date('d/m/Y', strtotime($collectes[0]['date_collecte'])) ?></p>
             </div>
             <!-- Bénévole Responsable -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Bénévole Admin</h3>
-                <p class="text-lg text-gray-600"><?= $adminNom ?></p>
+                <h3 class="text-xl font-semibold text-black-800 mb-12">Bénévole Admin</h3>
+                <p class="text-lg text-black-600"><?= $adminNom ?></p>
             </div>
         </div>
         <!-- Tableau des collectes -->
@@ -104,7 +104,7 @@ error_reporting(E_ALL);
                             <?= $collecte['nom'] ? htmlspecialchars($collecte['nom']) : 'Aucun bénévole' ?>
                         </td>
                         <td class="py-3 px-4 flex space-x-2">
-                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" role="button" aria-label="Modifier la collecte" >
+                            <a href="collection_edit.php?id=<?= $collecte['id'] ?>" class="border border-solid border-orange-400 text-black px-5 py-2 hover:bg-pink-400 rounded-lg rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200" role="bouton" aria-label="Modifier la collecte" >
                             ✏️ Modifier
                             </a>
                             <a href="collection_delete.php?id=<?= $collecte['id'] ?>" class="border border-solid border-purple-600 text-black px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette collecte ?');">

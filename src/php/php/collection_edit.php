@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <div class="flex justify-end space-x-4">
                     <a href="collection_list.php" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Annuler</a>
-                    <button type="submit" class="bg-cyan-200 text-white px-4 py-2 rounded-lg">Modifier</button>
+                    <button type="submit"class="border border-solid border-cyan-500 border-blue-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg shadow ai-style-change-1" aria-label="modifier la collecte">Modifier</button>
                 </div>
             </form>
         </div>
