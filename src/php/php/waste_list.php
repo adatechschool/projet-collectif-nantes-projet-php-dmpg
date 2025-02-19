@@ -71,13 +71,13 @@ error_reporting(E_ALL);
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <!-- Nombre total de collectes -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Total des déchets en KG</h3>
-                <p class="text-3xl font-bold text-blue-600"><?= round($result,2) ?></p>
+                <h3 class="text-xl font-semibold text-black-800 mb-3">Total des déchets en KG</h3>
+                <p class="text-2xl font-bold text-blue-600"><?= round($result,2) ?></p>
             </div>
             <!-- Bénévole Responsable -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Bénévole Admin</h3>
-                <p class="text-lg text-gray-600"><?= $adminNom ?></p>
+                <p class="text-lg text-black-600"><?= $adminNom ?></p>
             </div>
         </div>
         <!-- Tableau des collectes -->

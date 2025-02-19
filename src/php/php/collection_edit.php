@@ -70,18 +70,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <form method="POST" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Date :</label>
-                    <input type="date" name="date" value="<?= htmlspecialchars($collecte['date_collecte']) ?>" required
-                           class="w-full p-2 border border-gray-300 rounded-lg">
+                <label class="block text-sm font-medium text-gray-700" for="date-input">Date :</label>
+                <input type="date" name="date" value="<?= htmlspecialchars($collecte['date_collecte']) ?>" required="" class="w-full p-2 border border-gray-300 rounded-lg" id="date-input" aria-describedby="Sélectionner une date" placeholder="Sélectionner une date" title="Date de la collecte" aria-label="Date de la collecte">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Lieu :</label>
-                    <input type="text" name="lieu" value="<?= htmlspecialchars($collecte['lieu']) ?>" required
-                           class="w-full p-2 border border-gray-300 rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700" for="lieu-input">Lieu :</label>
+                    <input type="text" name="lieu" value="<?= htmlspecialchars($collecte['lieu']) ?>"required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="lieu-input" aria-describedby="lieu-description" placeholder="Choisir le lieu de la collecte" title="Location input field" aria-label="Location">  
+    
                 </div> 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Type de déchet :</label>
-                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg">>
+                    <label class="block text-sm font-medium text-gray-700" for="type-dechet-select">Type de déchet :</label>
+                    <select name="type_dechet" id="type_dechet_container" class="w-full p-2 border border-gray-300 rounded-lg" aria-describedby="type-dechet-description" title="Type des déchets" aria-label="Type des déchets">
+                   
                         <option value="">
                         Sélectionnez un type de déchet :
                         </option>
@@ -95,12 +95,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </select>    
                 </div>
                 <div>
-                   <label class="block text-sm  font-medium px-2 text-gray-700">Quantité(en kg) :</label>
-                     <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001">
+                   <label class="block text-sm  font-medium px-2 text-gray-700" for ="quantite-kg-input-">Quantité(en kg) :</label>
+                   <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001" id="quantite-kg-input-" aria-describedby="quantite-kg-" placeholder="Saisir la quantité en kg" title="Quantité des déchets" aria-label="Quantité des déchets en killogramme">
+                    
                </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Bénévole :</label>
-                    <select name="benevole" required class="w-full p-2 border border-gray-600 rounded-lg">
+                <label class="block text-sm font-medium text-gray-700" for="benevole-select"> Bénévole :</label>
+                <select name="benevole" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="benevole-select" aria-describedby="benevole-description" title="Selectionner un(e) bénevole" aria-label="Bénévole">
                         <option value="" disabled selected>Sélectionnez un·e bénévole</option>
                         <?php foreach ($benevoles as $benevole): ?>
                             <option value="<?= $benevole['id'] ?>" <?= $benevole['id'] == $collecte['id_benevole'] ? 'selected' : '' ?>>
