@@ -90,12 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <div>
                    <label class="block text-sm font-medium text-gray-700">Quantité(en kg) :</label>
-                   <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001" id="quantite-kg-input-tgf4cg5" aria-describedby="quantite-kg-description" placeholder="Enter quantity in kg" title="Quantity in kilograms input field" aria-label="Quantity in kilograms">
+                   <input class="w-full p-2 border border-gray-300 rounded-lg" name="quantite_kg" type="number" step="0.001" id="quantite-kg-input-tgf4cg5" aria-describedby="quantite-kg-description" placeholder="Saisir une quantité" title="Quantite des dechets en kilogramme" aria-label="Quantite des dechets en kilogramme">
                </div>
                 <!-- Bénévole responsable -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700" for="benevole-select">Bénévole Responsable :</label>
-                    <select name="benevole" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="benevole-select" aria-describedby="benevole-description" title="Responsible volunteer select field" aria-label="Responsible volunteer">
+                    <select name="benevole" required="" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="benevole-select" aria-describedby="benevole-description" title="Selectionner le benevole responsable" aria-label="Bénévole responsable">
                         <option value="">Sélectionner un bénévole</option>
                         <?php foreach ($benevoles as $benevole): ?>
                             <option value="<?= $benevole['id'] ?>" <?= $benevole['id'] ==  'selected' ?>>
