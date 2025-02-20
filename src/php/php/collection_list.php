@@ -1,5 +1,7 @@
 <?php
+
 require 'config.php';
+
 
 // Récupération des informations en créant une table de jointure
 try {
