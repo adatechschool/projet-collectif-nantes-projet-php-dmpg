@@ -55,20 +55,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form method="POST" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700" for ="nom-input">Nom :</label>
-                    <input class="w-full p-2 border border-gray-300 rounded-lg" value="<?= htmlspecialchars($benevole['nom']) ?>"required="" name="nom" type="text" id="nom-input-" aria-describedby="nom-" placeholder="Saisir le nom du benevole" title="NOM DU BENEVOLE" aria-label="NOM DU BENEVOLE">
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" value="<?= htmlspecialchars($benevole['nom']) ?>"
+                    required="" name="nom" type="text" id="nom-input-" aria-describedby="nom-" placeholder="Saisir le nom du benevole" 
+                    title="NOM DU BENEVOLE" aria-label="NOM DU BENEVOLE">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700" for ="email-input">Email :</label>
-                    <input class="w-full p-2 border border-gray-300 rounded-lg" name="email" value="<?= htmlspecialchars($benevole['email']) ?>" required="" type="text" id="email-input-" aria-describedby="email" placeholder="Saisir votre email" aria-label="email">
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" name="email" value="<?= htmlspecialchars($benevole['email']) ?>" 
+                    required="" type="text" id="email-input-" aria-describedby="email" placeholder="Saisir votre email" 
+                    aria-label="email">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700" for="mdp-input">Mot de passe :</label>
-                    <input class="w-full p-2 border border-gray-300 rounded-lg" type="text" name="mot_de_passe" value="<?= htmlspecialchars($benevole['mot_de_passe']) ?>" required=""  id="mdp-input-" aria-describedby="mot depasse" placeholder="Saisir votre mot de passe" aria-label="mot de passe">
+                    <input class="w-full p-2 border border-gray-300 rounded-lg" type="text" name="mot_de_passe" value="<?= htmlspecialchars($benevole['mot_de_passe']) ?>" 
+                    required=""  id="mdp-input-" aria-describedby="mot depasse" placeholder="Saisir votre mot de passe" aria-label="mot de passe">
                     
                 </div>
                 <div class="flex justify-end space-x-4">
                     <a href="volunteer_list.php" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg shadow">Annuler</a>
-                    <button type="submit" class="border border-solid border-cyan-500 border-blue-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg shadow ai-style-change-1" aria-label="Ajouter un nouvel élément">Modifier</button>
+                    <button type="submit" class="border border-solid border-cyan-500 border-blue-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg shadow ai-style-change-1" 
+                    aria-label="Ajouter un nouvel élément">Modifier</button>
                 </div>
             </form>
         </div>
