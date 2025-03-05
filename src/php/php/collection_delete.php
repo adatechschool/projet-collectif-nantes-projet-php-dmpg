@@ -2,23 +2,29 @@
 require 'config.php';
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = (int) $_GET['id'];
+    $id = $_GET['id'];
 
     try {
-        $pdo = new PDO("mysql:host=localhost;dbname=gestion_collectes", "nom_utilisateur_choisi", "mot_de_passe_solide", [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+        // Démarrer une transaction pour s'assurer que tout s'exécute ou rien
+        $pdo->beginTransaction();
 
-        $stmt = $pdo->prepare("DELETE FROM collectes WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        // D'abord supprimer les déchets collectés associés
+        $stmt_dechets = $pdo->prepare("DELETE FROM dechets_collectes WHERE id_collecte = ?");
+        $stmt_dechets->execute([$id]);
 
-        if ($stmt->execute()) {
-            header("Location: collection_list.php?success=1");
-            exit();
-        } else {
-            echo "Erreur lors de la suppression.";
-        }
+        // Ensuite supprimer la collecte
+        $stmt_collecte = $pdo->prepare("DELETE FROM collectes WHERE id = ?");
+        $stmt_collecte->execute([$id]);
+
+        // Valider la transaction
+        $pdo->commit();
+
+        header("Location: collection_list.php?success=1");
+        exit();
+
     } catch (PDOException $e) {
+        // En cas d'erreur, annuler toutes les modifications
+        $pdo->rollBack();
         die("Erreur: " . $e->getMessage());
     }
 } else {
